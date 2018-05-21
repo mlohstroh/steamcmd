@@ -8,8 +8,8 @@ RUN groupadd -r steam && \
     apt-get install -yq lib32gcc1 curl
 
 # Be the steam user
-RUN su - steam
 WORKDIR /home/steam
-RUN curl -sqL "https://steamcdn-a.akamaihd.net/client/installer/steamcmd_linux.tar.gz" | tar zxvf -
+RUN chown -R steam:steam /home/steam
+RUN su - steam -c "curl -sqL \"https://steamcdn-a.akamaihd.net/client/installer/steamcmd_linux.tar.gz\" | tar zxvf -"
 
 ENTRYPOINT [ "./steamcmd.sh" ]
